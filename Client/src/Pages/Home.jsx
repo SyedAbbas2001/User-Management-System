@@ -39,15 +39,16 @@ function Home() {
   return (
     <Container className="mt-5">
       <Row className="mb-4">
-        <Col md={6}>
+        <div className='d-flex justify-content-between my-3'>
           <h2>User List</h2>
-        </Col>
-        
-        <Col md={6} className="text-end">
+          <div className="text-end">
           <Link to="/create">
             <Button>Add User</Button>
           </Link>
-        </Col>
+        </div>
+        </div>
+        
+        
         <Col md={12}>
           <Form.Control
             type="text"
