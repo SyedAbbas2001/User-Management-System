@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
     email: { type: String, required: true }
 });
 const User = mongoose.model('User', userSchema);
-app.post('https://user-management-system-production-a059.up.railway.app/submit', async (req, res) => {
+app.post('/submit', async (req, res) => {
     console.log('Received data:', req.body);
     const { name, age, email } = req.body;
     const newUser = new User({ name, age, email });
@@ -32,7 +32,7 @@ app.post('https://user-management-system-production-a059.up.railway.app/submit',
     }
 });
 
-app.get('https://user-management-system-production-a059.up.railway.app//users', async (req, res) => {
+app.get('/users', async (req, res) => {
   const searchQuery = req.query.search || '';
 
   const filter = {
@@ -54,7 +54,7 @@ app.get('https://user-management-system-production-a059.up.railway.app//users', 
 
 
 
-app.delete('https://user-management-system-production-a059.up.railway.app//users/:id', async (req, res) => {
+app.delete('/users/:id', async (req, res) => {
     const { id } = req.params;
     try {
       const deletedUser = await User.findByIdAndDelete(id);
@@ -68,7 +68,7 @@ app.delete('https://user-management-system-production-a059.up.railway.app//users
     }
   });
 
-  app.get('https://user-management-system-production-a059.up.railway.app/users/:id', async (req, res) => {
+  app.get('/users/:id', async (req, res) => {
     const { id } = req.params;
     try {
       const user = await User.findById(id);
@@ -83,7 +83,7 @@ app.delete('https://user-management-system-production-a059.up.railway.app//users
   });
   
   
-  app.put('https://user-management-system-production-a059.up.railway.app/users/:id', async (req, res) => {
+  app.put('/users/:id', async (req, res) => {
     const { id } = req.params;
     const { name, age, email } = req.body;
   
