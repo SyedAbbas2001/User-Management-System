@@ -16,7 +16,7 @@ function CreateUser() {
   const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-          const response = await axios.post('http://localhost:4000/submit', formData);
+          const response = await axios.post('https://user-management-system-production-a059.up.railway.app/submit', formData);
           setMessage('User created successfully!');
           console.log(formData)
           setFormData({ name: '', age: '', email:'' });

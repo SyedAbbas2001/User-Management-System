@@ -13,7 +13,7 @@ function Home() {
 
   const fetchUsers = async (query = '') => {
     try {
-      const response = await axios.get(`http://localhost:4000/users?search=${query}`);
+      const response = await axios.get(`https://user-management-system-production-a059.up.railway.app/users?search=${query}`);
       setUsers(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -28,7 +28,7 @@ function Home() {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
       try {
-        await axios.delete(`http://localhost:4000/users/${id}`);
+        await axios.delete(`https://user-management-system-production-a059.up.railway.app/users/${id}`);
         fetchUsers(search); // Re-fetch after deletion with current search filter
       } catch (error) {
         console.error('Error deleting user:', error);

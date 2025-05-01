@@ -17,7 +17,7 @@ const UpdateUser = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/users/${id}`);
+        const response = await axios.get(`https://user-management-system-production-a059.up.railway.app/users/${id}`);
         setFormData(response.data); // Populate form with user data
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -38,7 +38,7 @@ const UpdateUser = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:4000/users/${id}`, formData);
+      const response = await axios.put(`https://user-management-system-production-a059.up.railway.app/users/${id}`, formData);
       setMessage('User updated successfully!');
       setFormData({ name: '', email: '', age: '' });
       navigate('/'); // Redirect to home page
