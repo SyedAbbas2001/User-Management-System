@@ -1,47 +1,63 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Container, Col, Row } from 'react-bootstrap';
-import { Link, Links } from 'react-router-dom';
+import { Table, Button, Container, Col, Row, Form } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
+
 function Home() {
   const [users, setUsers] = useState([]);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     fetchUsers();
   }, []);
 
-  const fetchUsers = async () => {
+  const fetchUsers = async (query = '') => {
     try {
-      const response = await fetch('http://localhost:4000/users');
-      const data = await response.json();
-      setUsers(data);
+      const response = await axios.get(`http://localhost:4000/users?search=${query}`);
+      setUsers(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);
     }
   };
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+    fetchUsers(e.target.value); // Live search as user types
+  };
+
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
       try {
         await axios.delete(`http://localhost:4000/users/${id}`);
-        // Refresh users after deletion
-        fetchUsers(); // this assumes you have a fetchUsers() function
+        fetchUsers(search); // Re-fetch after deletion with current search filter
       } catch (error) {
         console.error('Error deleting user:', error);
       }
     }
   };
-  
+
   return (
     <Container className="mt-5">
-      <Row>
+      <Row className="mb-4">
         <Col md={6}>
-          <h2 className="mb-4">User List</h2>
+          <h2>User List</h2>
         </Col>
+        
         <Col md={6} className="text-end">
           <Link to="/create">
             <Button>Add User</Button>
           </Link>
         </Col>
+        <Col md={12}>
+          <Form.Control
+            type="text"
+            placeholder="Search by name, email or age"
+            value={search}
+            onChange={handleSearch}
+          />
+        </Col>
       </Row>
+
       <Table striped bordered hover responsive>
         <thead className="table-dark">
           <tr>
@@ -59,7 +75,7 @@ function Home() {
             </tr>
           ) : (
             users.map((user, index) => (
-              <tr key={index}>
+              <tr key={user._id}>
                 <td>{index + 1}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>

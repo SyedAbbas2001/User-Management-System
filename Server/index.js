@@ -33,14 +33,26 @@ app.post('/submit', async (req, res) => {
 });
 
 app.get('/users', async (req, res) => {
-    try {
-        const users = await User.find();
-        res.status(200).json(users);
-    } catch (err) {
-        console.error('Error fetching users:', err);
-        res.status(500).json({ error: 'Failed to fetch users', details: err.message });
-    }
+  const searchQuery = req.query.search || '';
+
+  const filter = {
+    $or: [
+      { name: { $regex: searchQuery, $options: 'i' } },
+      { email: { $regex: searchQuery, $options: 'i' } },
+      { age: isNaN(searchQuery) ? undefined : parseInt(searchQuery) }
+    ].filter(Boolean) // remove undefined filters (like invalid age input)
+  };
+
+  try {
+    const users = await User.find(searchQuery ? filter : {});
+    res.status(200).json(users);
+  } catch (err) {
+    console.error('Error fetching users:', err);
+    res.status(500).json({ error: 'Failed to fetch users', details: err.message });
+  }
 });
+
+
 
 app.delete('/users/:id', async (req, res) => {
     const { id } = req.params;
