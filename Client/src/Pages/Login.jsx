@@ -34,7 +34,7 @@ const LoginForm = () => {
 
     try {
       const response = await axios.post(
-        '/login',
+        'https://user-management-system-production-a059.up.railway.app/login',
         { email, password },
         {
           headers: {

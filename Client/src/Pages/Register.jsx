@@ -35,9 +35,7 @@ const SignupForm = () => {
 
     setError('');
     setSuccess('');
-    setTimeout(()=>{
-        navigate('/');
-    },1000)
+    
 
     try {
       const response = await axios.post(
@@ -53,6 +51,9 @@ const SignupForm = () => {
       if (response.status === 201) {
         setSuccess('Registration successful! You can now log in.');
         setForm({ username: '', email: '', password: '', age: '' });
+        setTimeout(()=>{
+            navigate('/');
+        },1000)
       }
     } catch (err) {
       console.error('Error during registration:', err);
