@@ -6,6 +6,12 @@ import { useNavigate } from 'react-router-dom';
 
 function Home() {
   const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      navigate('/');
+    }
+  }, [navigate]);
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState('');
 

@@ -11,6 +11,12 @@ import axios from 'axios';
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      navigate('/home');
+    }
+  }, [navigate]);
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
