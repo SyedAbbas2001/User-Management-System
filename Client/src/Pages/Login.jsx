@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import { Link, useNavigate } from 'react-router-dom'; 
 import {
   Container,
   Form,
@@ -104,6 +104,7 @@ const LoginForm = () => {
             Login
           </Button>
         </Form>
+        <p className='text-center mt-3'>Dont have an account? <Link to="/sign-up"> Sign Up!</Link></p>
       </Card>
     </Container>
   );
