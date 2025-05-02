@@ -7,8 +7,10 @@ import {
   Alert
 } from 'react-bootstrap';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const SignupForm = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     username: '',
     email: '',
@@ -33,6 +35,9 @@ const SignupForm = () => {
 
     setError('');
     setSuccess('');
+    setTimeout(()=>{
+        navigate('/');
+    },1000)
 
     try {
       const response = await axios.post(
