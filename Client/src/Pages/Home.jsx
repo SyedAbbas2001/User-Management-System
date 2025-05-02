@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Table, Button, Container, Col, Row, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState('');
 
@@ -24,7 +26,10 @@ function Home() {
     setSearch(e.target.value);
     fetchUsers(e.target.value); // Live search as user types
   };
-
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    navigate('/');  
+  };
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
       try {
@@ -45,6 +50,9 @@ function Home() {
           <Link to="/create">
             <Button>Add User</Button>
           </Link>
+          <Button className='mx-3 btn-warning' onClick={handleLogout}>
+            Logout
+          </Button>
         </div>
         </div>
         

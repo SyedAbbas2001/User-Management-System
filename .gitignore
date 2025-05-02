@@ -5,3 +5,5 @@ Server/node_modules/
 # Ignore build outputs (if any)
 dist/
 build/
+
+.env
