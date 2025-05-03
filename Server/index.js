@@ -112,6 +112,7 @@ app.get('/protected', async (req, res) => {
 // Submit user (additional endpoint example)
 app.post('/submit', async (req, res) => {
     const { name, age, email } = req.body;
+    const defaultPassword = await bcrypt.hash('DefaultPass123', 10);
     const newUser = new User({ name, age, email , password: defaultPassword });
 
     try {
