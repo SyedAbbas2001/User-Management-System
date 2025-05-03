@@ -112,7 +112,7 @@ app.get('/protected', async (req, res) => {
 // Submit user (additional endpoint example)
 app.post('/submit', async (req, res) => {
     const { name, age, email } = req.body;
-    const newUser = new User({ name, age, email });
+    const newUser = new User({ name, age, email , password: defaultPassword });
 
     try {
         await newUser.save();
